@@ -20,5 +20,15 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    #Delivery
+    _instanceof:
+        App\Service\Delivery\Calculation\DeliveryCalculatorInterface:
+            tags: [ 'delivery.calculator' ]
+            lazy: true
+
+    App\Service\Delivery\DeliveryManager:
+        arguments:
+            - !tagged_iterator 'delivery.calculator'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
