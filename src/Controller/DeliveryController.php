@@ -14,17 +14,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class DeliveryController extends AbstractController
 {
 
-    #[Route('/get-delivery-price', name: "home")]
+    #[Route('/get-delivery-price', name: "delivery")]
     public function getDeliveryPrice(Request $request, DeliveryManager $deliveryManager): Response
     {
         $form = $this->createForm(DeliveryCalculationForm::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $weight = (float) $form->get('weight')->getData();
-            $calculator = $deliveryManager->getDeliveryCalculator($form->get('slug')->getData());
+            $weight = (float)$form->get('weight')->getData();
+            $transportService = $deliveryManager->getTransportService($form->get('slug')->getData());
 
-            $this->addFlash('success', "Delivery price: {$calculator->calculatePrice($weight)}");
+            $this->addFlash('success', "Delivery price: {$transportService->calculatePrice($weight)}");
 
             return $this->render(
                 'delivery-calculation.html.twig',

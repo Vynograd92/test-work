@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <div class="w-50 p-3 mx-auto" style="background-color: #eee;">
         {{ form(form) }}
         <hr>
-        {% for flashMessage in app.session.flashbag.get('success') %}
-
-            {{ flashMessage }}
-
-        {% endfor %}
+        {% if result is defined %}
+            <pre>{{ result|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        {% endif %}
     </div>
 {% endblock %}

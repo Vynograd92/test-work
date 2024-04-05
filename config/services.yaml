@@ -22,13 +22,13 @@ services:
 
     #Delivery
     _instanceof:
-        App\Service\Delivery\Calculation\DeliveryCalculatorInterface:
-            tags: [ 'delivery.calculator' ]
+        App\Service\Delivery\TransportService\TransportInterface:
+            tags: [ 'transport.service' ]
             lazy: true
 
     App\Service\Delivery\DeliveryManager:
         arguments:
-            - !tagged_iterator 'delivery.calculator'
+            - !tagged_iterator 'transport.service'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

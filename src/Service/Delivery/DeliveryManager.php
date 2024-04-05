@@ -3,22 +3,22 @@ declare(strict_types=1);
 
 namespace App\Service\Delivery;
 
-use App\Service\Delivery\Calculation\DeliveryCalculatorInterface;
+use App\Service\Delivery\TransportService\TransportInterface;
 
 class DeliveryManager
 {
     /**
-     * @param iterable|DeliveryCalculatorInterface[] $deliveryCalculators
+     * @param iterable|TransportInterface[] $transportServices
      */
-    public function __construct(private iterable $deliveryCalculators)
+    public function __construct(private iterable $transportServices)
     {
     }
 
-    public function getDeliveryCalculator(string $slug): DeliveryCalculatorInterface
+    public function getTransportService(string $slug): TransportInterface
     {
-        foreach ($this->deliveryCalculators as $deliveryCalculator) {
-            if ($deliveryCalculator->getSlug() === $slug) {
-                return $deliveryCalculator;
+        foreach ($this->transportServices as $transportService) {
+            if ($transportService->getSlug() === $slug) {
+                return $transportService;
             }
         }
 
